@@ -14,27 +14,29 @@ todoButton.addEventListener('click', addItem);
 function addItem(event) {
     //prevent form submitting
     event.preventDefault();
-
-    //create div ---> create li --> create detele btn ---> create checked
+    const input = todoInput.textContent;
+    //create div ---> create li
     const divItem = document.createElement('div');
     divItem.classList.add('todo-item');
 
     const liTodoThing = document.createElement('li');
     liTodoThing.classList.add('todo-thing');
-    liTodoThing.innerText = 'hello';
+    liTodoThing.innerText = 'input';
 
     divItem.appendChild(liTodoThing);
 
     //create check & delete button
-    
     const checkedButton = document.createElement('button');
+    checkedButton.classList.add('checked-button');
     checkedButton.innerHTML = '<i class="fas fa-check"></i>';
     divItem.appendChild(checkedButton);
 
     const deleteButton = document.createElement('button');
-    deleteButton.innerHTML = '<i class="fas fa-check"></i>';
+    deleteButton.classList.add('delete-button');
+    deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
     divItem.appendChild(deleteButton);
-    //set classname
-    
+
+    //append to list
+    todoList.appendChild(divItem);
     
 }
