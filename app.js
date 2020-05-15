@@ -1,17 +1,48 @@
 //selector
 const todoInput = document.querySelector('.todo-input');
 const todoButton = document.querySelector('.todo-button');
-
 const todoList = document.querySelector('.todo-list');
-
-
-
+const filter = document.querySelector('#filter');
 
 //event listener
 todoButton.addEventListener('click', addItem);
 todoList.addEventListener('click', deleteAndChecked);
+filter.addEventListener('change', filterList);
 
 //function
+
+function filterList(event) {
+    const list = todoList.children;
+
+    switch (filter.value) {
+        case 'checked':       
+            Array.from(list).filter((child) => {
+                if (child.className.includes('completed')){
+                    child.style.display = 'flex';
+                }else {
+                    child.style.display = 'none';
+                }
+            })
+            break;
+
+        case 'uncheck':
+            Array.from(list).filter((child) => {
+                if (!child.className.includes('completed')){
+                    child.style.display = 'flex';
+                }else {
+                    child.style.display = 'none';
+                }
+            })
+            break;
+
+        case 'all':
+            Array.from(list).filter((child) => {
+                    child.style.display = 'flex';
+            })
+            break;
+    }
+}
+
 function deleteAndChecked(event) {
     
     const target = event.target;
