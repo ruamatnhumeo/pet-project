@@ -17,13 +17,14 @@ function deleteAndChecked(event) {
     const target = event.target;
 
     if (target.classList[0] === 'delete-button') {
-        const divItem = target.parentElement;
-        divItem.remove();
+        const item = target.parentElement;
+        item.classList.add('fall');
+        item.addEventListener('transitionend', () => item.remove());
     }
 
     else if (target.classList[0] === 'checked-button') {
-        const divItem = target.parentElement;
-        divItem.classList.toggle('completed');
+        const item = target.parentElement;
+        item.classList.toggle('completed');
     }
 }
 
