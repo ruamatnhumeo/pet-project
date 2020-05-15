@@ -155,3 +155,7 @@ select {
     color:  rgba(235, 163, 29, 0.925);
 
 }
+
+option {
+    padding: 3rem;
+}

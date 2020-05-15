@@ -8,9 +8,9 @@ const filter = document.querySelector('#filter');
 todoButton.addEventListener('click', addItem);
 todoList.addEventListener('click', deleteAndChecked);
 filter.addEventListener('change', filterList);
+document.addEventListener('DOMContentLoaded', getLocalStorage)
 
-//function
-
+//functions
 function filterList(event) {
     const list = todoList.children;
 
@@ -49,6 +49,9 @@ function deleteAndChecked(event) {
 
     if (target.classList[0] === 'delete-button') {
         const item = target.parentElement;
+
+        removeItemLocalStorage(item.innerText);
+
         item.classList.add('fall');
         item.addEventListener('transitionend', () => item.remove());
     }
@@ -70,8 +73,10 @@ function addItem(event) {
     const liTodoThing = document.createElement('li');
     liTodoThing.classList.add('todo-thing');
     liTodoThing.innerText = todoInput.value;
-
+    
     divItem.appendChild(liTodoThing);
+
+    setLocalStorage(liTodoThing.innerText);
 
     //create check & delete button
     const checkedButton = document.createElement('button');
@@ -91,3 +96,56 @@ function addItem(event) {
     todoInput.value = '';
 }
 
+
+//localStorage functions
+function getLocalStorage(item) {
+    let list;
+    if(localStorage.getItem('list')) {
+        list = JSON.parse(localStorage.getItem('list'));
+    }
+    list.forEach((item) => {
+
+        const divItem = document.createElement('div');
+        divItem.classList.add('todo-item');
+
+        const liTodoThing = document.createElement('li');
+        liTodoThing.classList.add('todo-thing');
+        liTodoThing.innerText = item;
+        
+        divItem.appendChild(liTodoThing);
+
+        //create check & delete button
+        const checkedButton = document.createElement('button');
+        checkedButton.classList.add('checked-button');
+        checkedButton.innerHTML = '<i class="fas fa-check"></i>';
+        divItem.appendChild(checkedButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add('delete-button');
+        deleteButton.innerHTML = '<i class="fas fa-trash"></i>';
+        divItem.appendChild(deleteButton);
+
+        //append to list
+        todoList.appendChild(divItem);
+    })
+}
+
+function setLocalStorage(item) {
+    let list;
+    if (!localStorage.getItem('list')){
+        list = [];
+    }else {
+        list = JSON.parse(localStorage.getItem('list'));
+    }
+
+    list.push(item);
+    localStorage.setItem('list', JSON.stringify(list));
+}
+
+function removeItemLocalStorage(itemInnerText){
+    let list;
+    
+    list = JSON.parse(localStorage.getItem('list'));
+    list.splice(list.indexOf(itemInnerText),1);
+    localStorage.setItem('list', JSON.stringify(list));
+}
