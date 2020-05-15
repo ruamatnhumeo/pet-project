@@ -73,12 +73,12 @@ form button:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    transition: all .5s ease-out;
 }
 
 .todo-thing {
     flex: 1;
-    padding: .3rem;
+    padding: .2rem;
 }
 
 .delete-button,
@@ -87,8 +87,27 @@ form button:hover {
     cursor: pointer;
     color:white;
     background:  rgba(235, 163, 29, 0.925);
-    font-size: 2rem;
+    font-size: 1rem;
+    padding: .8rem;
     transition: all .3s ease;
+    border: none;
     
 }
 
+.checked-button {
+    background: rgb(32, 148, 9);
+}
+
+.delete-button {
+    background: rgba(226, 99, 25, 0.911);
+}
+
+.fas {
+    pointer-events: none;
+}
+
+.completed {
+    text-decoration: line-through;
+    opacity: .5;
+    
+}
